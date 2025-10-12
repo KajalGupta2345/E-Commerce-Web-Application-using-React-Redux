@@ -4,15 +4,17 @@ import { asyncLoginUser } from "../store/actions/userAction";
 import { useDispatch } from "react-redux";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const { register, reset, handleSubmit } = useForm();
+  const { register, reset, handleSubmit,formState:{errors} } = useForm();
   const [showpassword, setshowpassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const LoginHandler = (user) => {
     dispatch(asyncLoginUser(user));
+    toast.success("User login Successfully!");
     navigate("/");
     reset();
   };
@@ -33,7 +35,7 @@ const Login = () => {
       {/* Right Side - Login Form */}
       <form
         onSubmit={handleSubmit(LoginHandler)}
-        className="relative z-10 w-full max-w-md bg-white backdrop-blur-md border border-gray-200 rounded-2xl p-8 md:p-10 flex flex-col gap-y-6"
+        className="relative z-10 w-full max-w-md bg-white backdrop-blur-md border border-gray-200 rounded-2xl p-8 md:p-10 flex flex-col gap-y-5"
       >
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-gray-800">
@@ -48,16 +50,22 @@ const Login = () => {
           type="text"
           className="outline-none px-4 py-3 rounded-lg md:text-lg sm:text-base text-sm focus:ring-2 text-gray-900 bg-blue-50 focus:ring-blue-400 w-full"
           placeholder="John-Doe"
-          {...register("username", { required: true })}
+          {...register("username", { required: "username must be entered!"})}
         />
+        {errors.username && (
+          <p className="text-red-500 text-sm ">{errors.username.message}</p>
+        )}
 
         <div className="w-full relative">
           <input
             type={showpassword ? "text" : "password"}
             className="outline-none px-4 py-3 rounded-lg md:text-lg sm:text-base text-sm focus:ring-2 text-gray-900 bg-blue-50 focus:ring-blue-400 w-full"
             placeholder="*********"
-            {...register("password", { required: true })}
+            {...register("password", { required: "password must be entered!" })}
           />
+          {errors.password && (
+          <p className="text-red-500 text-sm mt-1 ">{errors.password.message}</p>
+        )}
           <button
             type="button"
             className="absolute text-gray-500 hover:text-gray-600 flex md:text-lg sm:text-base text-sm items-center right-3 inset-y-0"

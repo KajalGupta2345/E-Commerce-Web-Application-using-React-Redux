@@ -3,11 +3,23 @@ import { useSelector } from "react-redux";
 
 const AuthWrapper = ({ children }) => {
   const { users } = useSelector((state) => state.userReducer);
-  console.log(Object.keys(users).length);
+  console.log(users);
+  let bol = (users == null);
+  console.log(bol)
 
-  const isLoggedIn = users && Object.keys(users).length > 0;
-
-  return isLoggedIn ? children : <Navigate to="/login" />;
+  return !bol ? children : <Navigate to="/login" />;
 };
 
 export default AuthWrapper;
+
+
+
+// const AuthWrapper = ({ children }) => {
+//   const { users } = useSelector((state) => state.userReducer);
+
+//   const isLoggedIn = users && Object.keys(users).length > 0;
+
+//   return isLoggedIn ? children : <Navigate to="/login" />;
+// };
+
+// export default AuthWrapper;

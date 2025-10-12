@@ -20,6 +20,8 @@ const MainRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Products />} />
+
+
       <Route
         path="/login"
         element={
@@ -28,6 +30,7 @@ const MainRoutes = () => {
           </UnauthWrapper>
         }
       />
+
       <Route
         path="/register"
         element={
@@ -74,17 +77,17 @@ const MainRoutes = () => {
       <Route
         path="/forgot/password"
         element={
-          <AuthWrapper>
+          // <AuthWrapper>
             <ForgotPassword />
-          </AuthWrapper>
+          // </AuthWrapper>
         }
       />
       <Route
         path="/reset/password"
         element={
-          <AuthWrapper>
+          // <AuthWrapper>
             <ResetPassword />
-          </AuthWrapper>
+          // </AuthWrapper>
         }
       />
       <Route path="*" element={<PageNotFound />} />

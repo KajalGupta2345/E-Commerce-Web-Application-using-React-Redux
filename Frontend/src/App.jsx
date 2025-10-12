@@ -9,7 +9,7 @@ const App = () => {
   const { users } = useSelector((state) => state.userReducer);
 
   useEffect(() => {
-    if (!users || users.length === 0) {
+    if (!users) {
       console.log("No user found, loading current user...");
       dispatch(asyncCurrentUser());
     }

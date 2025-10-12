@@ -14,9 +14,7 @@ export const asyncCurrentUser = () => async (dispatch, getState) => {
 export const asyncLoginUser = (user) => async (dispatch, getState) => {
   try {
     const { data } = await axios.get(
-      `/users?username=${encodeURIComponent(
-        user.username
-      )}&password=${encodeURIComponent(user.password)}`
+      `/users?username=${encodeURIComponent(user.username)}&password=${encodeURIComponent(user.password)}`
     );
     localStorage.setItem("user", JSON.stringify(data[0]));
     dispatch(asyncCurrentUser());
@@ -35,6 +33,8 @@ export const asyncLogoutUser = () => async (dispatch, getState) => {
 
 export const asyncRegisterUser = (user) => async (dispatch, getState) => {
   try {
+    // console.log(getState());
+
     const { data } = await axios.post("/users", user);
     dispatch(loaduser(data));
     localStorage.setItem("user", JSON.stringify(data));
@@ -56,6 +56,20 @@ export const asyncdeleteuser = (id) => async (dispatch, getState) => {
   try {
     await axios.delete(`/users/${id}`);
     dispatch(asyncLogoutUser());
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ...email varify
+
+export const asyncdoublemail = (user) => async (dispatch, getState) => {
+  try {
+    const { data } = await axios.get(`/users?email=${user.email}`);
+    // console.log(data.length);
+    
+    if (data.length > 0) return true;
+    else return false;
   } catch (error) {
     console.log(error);
   }

@@ -1,18 +1,26 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axiosconfig";
+import Login from "./Login";
 
 const ForgotPassword = () => {
-  const { register, reset, handleSubmit } = useForm();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors }, 
+  } = useForm();
   const navigate = useNavigate();
 
-  const ResetHandler = async(formData) => {
+  const ResetHandler = async (formData) => {
     try {
       console.log("Email entered:", formData.email);
       const { data } = await axios.get(`/users?email=${formData.email}`);
-     
-      localStorage.setItem("resetUser",JSON.stringify(data));
-      
+        console.log(data);
+        
+
+      localStorage.setItem("resetUser", JSON.stringify(data));
+
       if (data.length == 0) {
         alert("Email not found! Please enter a registered email.");
         return;
@@ -37,8 +45,11 @@ const ForgotPassword = () => {
         className="outline-none border-b-2 border-blue-400 text-gray-500 text-xl px-3 py-2 w-1/2 focus:border-blue-600 transition-all"
         type="email"
         placeholder="Enter your email"
-        {...register("email", { required: true })}
+        {...register("email", { required: "email cannot be blank" })}
       />
+      {errors.email && (
+        <p className="text-red-500 text-sm">{errors.email.message}</p>
+      )}
 
       <button
         type="submit"

@@ -20,7 +20,7 @@ const Cart = () => {
 
   const decreaseCartQuantityHandler = (index) => {
     const copyuser = { ...users, cart: [...users.cart] };
-    if (users.cart[index].quantity > 0) {
+    if (users.cart[index].quantity > 1) {
       copyuser.cart[index] = {
         ...copyuser.cart[index],
         quantity: copyuser.cart[index].quantity - 1,
