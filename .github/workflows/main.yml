@@ -1,0 +1,32 @@
+name: E-commerce website
+
+on: 
+ push:
+   branches:
+     - main
+
+jobs:
+  build:
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v6.0.3
+     - name: Setup Node.js environment
+       uses: actions/setup-node@v6.4.0
+       with:
+         node-version : 22.x
+         cache: npm
+         
+     - name: Install Dependencies
+       run : npm install
+
+     - name: Build-my-app
+       run : npm run build
+
+     - name: Upload a Build Artifact
+       uses: actions/upload-artifact@v7.0.1  
+       with : 
+         name : react-build
+         path : dist
+       
