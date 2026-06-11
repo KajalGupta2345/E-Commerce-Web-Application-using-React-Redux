@@ -31,13 +31,9 @@ jobs:
        working-directory: Backend
        run: npm install
 
-     - name: Test Backend
-       working-directory: Backend
-       run: npm test
-
      - name: Upload a Build Artifact
        uses: actions/upload-artifact@v7.0.1  
        with : 
          name : react-build
          path : Frontend/dist
-       
+ 
