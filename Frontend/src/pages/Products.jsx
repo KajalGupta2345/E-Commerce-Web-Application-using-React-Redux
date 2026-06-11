@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useInfiniteProduct from "../utils/useInfiniteProduct";
-const ProductTemplate = lazy(() => import("../components/productTemplate"));
+const ProductTemplate = lazy(() => import("../components/ProductTemplate"));
 
 const Products = () => {
   const { products, fetchproducts, hasMore } = useInfiniteProduct();
